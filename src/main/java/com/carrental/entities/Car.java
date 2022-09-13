@@ -29,7 +29,7 @@ public class Car {
     private String type;
 
     @Column(name = "seats")
-    private String seats;
+    private int seats;
 
     public Car() {
 
@@ -95,17 +95,17 @@ public class Car {
         this.type = type;
     }
 
-    public String getSeats() {
+    public int getSeats() {
 
         return seats;
     }
 
-    public void setSeats(String seats) {
+    public void setSeats(int seats) {
 
         this.seats = seats;
     }
 
-    public Car(String licensePlate, String manufacturer, String model, int year, String type, String seats) {
+    public Car(String licensePlate, String manufacturer, String model, int year, String type, int seats) {
         this.licensePlate = licensePlate;
         this.manufacturer = manufacturer;
         this.model = model;

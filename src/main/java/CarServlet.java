@@ -83,7 +83,7 @@ public class CarServlet extends HttpServlet {
         String model = request.getParameter("model");
         int year = Integer.parseInt(request.getParameter("year"));
         String type = request.getParameter("type");
-        String seats = request.getParameter("seats");
+        int seats = Integer.parseInt(request.getParameter("seats"));
 
         Car newCar = new Car(licensePlate, manufacturer, model, year, type, seats);
         carDao.saveCar(newCar);
@@ -98,7 +98,7 @@ public class CarServlet extends HttpServlet {
         String model = request.getParameter("model");
         int year = Integer.parseInt(request.getParameter("year"));
         String type = request.getParameter("type");
-        String seats = request.getParameter("seats");
+        int seats = Integer.parseInt(request.getParameter("seats"));
 
         Car newCar = new Car(licensePlate, manufacturer, model, year, type, seats);
 
