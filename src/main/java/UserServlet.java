@@ -12,34 +12,37 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
-@WebServlet("/")
+@WebServlet("/UserServlet")
 public class UserServlet extends HttpServlet {
     private UserDao userDao = new UserDao();
+
+    @Override
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doGet(request, response);
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getServletPath();
 
         try {
             switch (action) {
-                case "/new":
+                case "/newUser":
                     showNewForm(request, response);
                     break;
-                case "/insert":
+                case "/insertUser":
                     insertUser(request, response);
                     break;
-                case "/delete":
+                case "/deleteUser":
                     deleteUser(request, response);
                     break;
-                case "/edit":
+                case "/editUser":
                     showEditForm(request, response);
                     break;
-                case "/update":
+                case "/updateUser":
                     updateUser(request, response);
                     break;
                 default:

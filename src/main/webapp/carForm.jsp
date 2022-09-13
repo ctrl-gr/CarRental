@@ -12,9 +12,9 @@
 <div class="text-center">
     <h1>Car Management</h1>
     <h2>
-        <a href="new">Add new car</a>
+        <a href="CarServlet/newCar">Add new car</a>
         &nbsp;&nbsp;&nbsp;
-        <a href="list">List all cars</a>
+        <a href="CarServlet/listCar">List all cars</a>
     </h2>
 </div>
 
