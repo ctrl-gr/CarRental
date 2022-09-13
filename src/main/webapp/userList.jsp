@@ -12,9 +12,9 @@
 <div class="text-center">
     <h1>User Management</h1>
     <h2>
-        <a href="userForm.jsp">Add New User</a>
+        <a href="">Add New User</a>
         &nbsp;&nbsp;&nbsp;
-        <a href="userList.jsp">List All Users</a>
+        <a href="/list">List All Users</a>
 
     </h2>
 </div>
@@ -27,7 +27,6 @@
         <th>Username</th>
         <th>Password</th>
         <th>Actions</th>
-
     </tr>
     <c:forEach var="user" items="${listUser}">
         <tr>
