@@ -53,7 +53,7 @@ public class UserServlet extends HttpServlet {
 
     private void listUser(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        List < User > listUser = userDao.getUsers();
+        List<User> listUser = userDao.getUsers();
         request.setAttribute("listUser", listUser);
         RequestDispatcher dispatcher = request.getRequestDispatcher("userList.jsp");
         dispatcher.forward(request, response);
@@ -112,3 +112,4 @@ public class UserServlet extends HttpServlet {
         response.sendRedirect("list");
     }
 }
+

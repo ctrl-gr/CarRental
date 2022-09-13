@@ -9,7 +9,8 @@
 <h1><%= "Welcome!" %>
 </h1>
 <br/>
-<a href="UserServlet">User management</a>
+<a href="UserServlet">User management area</a> <br/>
+    <a href="CarServlet">Car management area</a>
 </center>
 </body>
 </html>
