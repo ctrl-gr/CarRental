@@ -1,6 +1,7 @@
 package com.carrental.entities;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "rent")
@@ -8,31 +9,31 @@ import javax.persistence.*;
 public class Rent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "rentId")
+    @Column(name = "rent_id")
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    @JoinColumn(name="userId", insertable = false, updatable = false)
+    @ManyToOne
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
-    @JoinColumn(name="carId", insertable = false, updatable = false)
+    @ManyToOne
+    @JoinColumn(name = "car_id", insertable = false, updatable = false)
     private Car car;
 
-    @Column(name = "StartDate")
-    private String startDate;
+    @Column(name = "start_date")
+    private Date startDate;
 
-    @Column(name = "EndDate")
-    private String endDate;
+    @Column(name = "end_date")
+    private Date endDate;
 
-    @Column(name = "isApproved")
+    @Column(name = "is_approved")
     private boolean isApproved;
 
     public Rent() {
 
     }
 
-    public Rent(User user, Car car, String startDate, String endDate, boolean isApproved){
+    public Rent(User user, Car car, Date startDate, Date endDate, boolean isApproved) {
         this.user = user;
         this.car = car;
         this.startDate = startDate;
@@ -41,22 +42,27 @@ public class Rent {
     }
 
     public int getId() {
+
         return id;
     }
 
     public void setId(int id) {
+
         this.id = id;
     }
 
     public User getUser() {
+
         return user;
     }
 
     public void setUser(User user) {
+
         this.user = user;
     }
 
     public Car getAuto() {
+
         return car;
     }
 
@@ -64,19 +70,19 @@ public class Rent {
         this.car = car;
     }
 
-    public String getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 

@@ -2,9 +2,7 @@ package com.carrental.entities;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "car")
@@ -12,29 +10,26 @@ public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "carId")
+    @Column(name = "car_id")
     private int id;
 
-    @Column(name = "Plate")
-    private String plate;
+    @Column(name = "license_plate")
+    private String licensePlate;
 
-    @Column(name = "Manufacturer")
+    @Column(name = "manufacturer")
     private String manufacturer;
 
-    @Column(name = "Model")
+    @Column(name = "model")
     private String model;
 
-    @Column(name = "RegistrationYear")
-    private String year;
+    @Column(name = "registration_year")
+    private int year;
 
-    @Column(name = "Type")
+    @Column(name = "type")
     private String type;
 
-    @Column(name = "Seats")
+    @Column(name = "seats")
     private String seats;
-
-    @OneToMany(cascade = { CascadeType.ALL })
-    private List<User> users = new ArrayList<User>();
 
     public Car() {
 
@@ -50,14 +45,14 @@ public class Car {
         this.id = id;
     }
 
-    public String getPlate() {
+    public String getLicensePlate() {
 
-        return plate;
+        return licensePlate;
     }
 
-    public void setPlate(String plate) {
+    public void setLicensePlate(String licensePlate) {
 
-        this.plate = plate;
+        this.licensePlate = licensePlate;
     }
 
     public String getManufacturer() {
@@ -80,12 +75,12 @@ public class Car {
         this.model = model;
     }
 
-    public String getYear() {
+    public int getYear() {
 
         return year;
     }
 
-    public void setYear(String year) {
+    public void setYear(int year) {
 
         this.year = year;
     }
@@ -110,8 +105,8 @@ public class Car {
         this.seats = seats;
     }
 
-    public Car(String plate, String manufacturer, String model, String year, String type, String seats) {
-        this.plate = plate;
+    public Car(String licensePlate, String manufacturer, String model, int year, String type, String seats) {
+        this.licensePlate = licensePlate;
         this.manufacturer = manufacturer;
         this.model = model;
         this.year = year;
@@ -121,7 +116,7 @@ public class Car {
 
     @Override
     public String toString() {
-        return "Car [id=" + id + ", Targa =" + plate + ", Casa costruttrice =" + manufacturer + ", Modello =" + model + ", Tipologia =" + type + ", Numero dei posti =" + seats + " ]";
+        return "Car [id=" + id + ", Targa =" + licensePlate + ", Casa costruttrice =" + manufacturer + ", Modello =" + model + ", Tipologia =" + type + ", Numero dei posti =" + seats + " ]";
     }
 
 }

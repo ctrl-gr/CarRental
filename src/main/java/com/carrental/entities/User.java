@@ -1,82 +1,101 @@
 package com.carrental.entities;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.*;
 
 
 @Entity
-    @Table(name = "user")
-    public class User {
+@Table(name = "user")
+public class User {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column(name = "userId")
-        private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private int id;
 
-        @Column(name = "Name")
-        private String firstName;
+    @Column(name = "name")
+    private String firstName;
 
-        @Column(name = "LastName")
-        private String lastName;
+    @Column(name = "last_name")
+    private String lastName;
 
-        @Column(name = "BirthDate")
-        private String birthDate;
+    @Column(name = "birth_date")
+    private LocalDate birthDate;
 
-        @OneToMany(cascade = {
-                CascadeType.ALL
-        })
-       private List<Car> cars = new ArrayList<Car>();
+    @Column(name = "username")
+    private String username;
+
+
+    @Column(name = "password")
+    private String password;
 
     public User() {
 
-        }
-
-        public User(String firstName, String lastName, String birthDate) {
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.birthDate = birthDate;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getFirstName() {
-            return firstName;
-        }
-
-        public void setFirstName(String firstName) {
-            this.firstName = firstName;
-        }
-
-        public String getLastName() {
-            return lastName;
-        }
-
-        public void setLastName(String lastName) {
-            this.lastName = lastName;
-        }
-
-        public String getBirthDate() {
-
-            return birthDate;
-        }
-
-        public void setBirthDate(String birthDate) {
-
-            this.birthDate = birthDate;
-        }
-
-        @Override
-        public String toString() {
-            return "User [id=" + id + ", Nome=" + firstName + ", Cognome=" + lastName + ", DataDiNascita=" + birthDate + "]";
-        }
     }
+
+    public User(String firstName, String lastName, LocalDate birthDate, String username, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+        this.username = username;
+        this.password = password;
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public LocalDate getBirthDate() {
+
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+
+        this.birthDate = birthDate;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", Nome=" + firstName + ", Cognome=" + lastName + ", DataDiNascita=" + birthDate + ", Username = " + username + "]";
+    }
+}
 

@@ -13,13 +13,13 @@ import java.util.List;
 public class CarServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // get the user data from the class (model)
+        // get the data from the class (model)
         CarDao carDao = new CarDao();
         List<Car> cars = carDao.getCars();
-        // add the students to request object
+        // add the data to request object
         request.setAttribute("carList", cars);
         //get the request dispatcher
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Car.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("car.jsp");
         // forward to JSP
         dispatcher.forward(request, response);
     }
