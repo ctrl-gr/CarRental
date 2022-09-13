@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
-@WebServlet(name = "UserServlet", value = "/UserServlet")
+@WebServlet("/")
 public class UserServlet extends HttpServlet {
     private UserDao userDao = new UserDao();
 
