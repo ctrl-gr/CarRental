@@ -12,15 +12,15 @@
 <div class="text-center">
     <h1>Car Management</h1>
     <h2>
-        <a href="CarServlet/newCar">Add new car</a>
+        <a href="CarServlet?action=newCar">Add new car</a>
         &nbsp;&nbsp;&nbsp;
-        <a href="CarServlet/listCar">List all cars</a>
+        <a href="CarServlet?action=listCar">List all cars</a>
     </h2>
 </div>
 
 <div class="center">
 
-    <form action="CarServlet" method="post">
+    <form action="CarServlet?action=insertCar" method="post">
         <table class="table table-dark">
             <tr>
                 <th>License Plate:</th>

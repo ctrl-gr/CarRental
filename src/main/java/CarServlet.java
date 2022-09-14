@@ -19,29 +19,77 @@ public class CarServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
+        String action = "";
+
+        if (request.getParameter("action") != null) {
+            action = request.getParameter("action");
+        }
+
+        try {
+            switch (action) {
+
+                case "insertCar":
+                    insertCar(request, response);
+                    break;
+
+                case "deleteCar":
+                    deleteCar(request, response);
+                    break;
+                case "editCar":
+                    showEditForm(request, response);
+                    break;
+
+            }
+        } catch (SQLException ex) {
+            throw new ServletException(ex);
+        }
     }
+
+    private void insertCar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+        String licensePlate = request.getParameter("licensePlate");
+        String manufacturer = request.getParameter("manufacturer");
+        String model = request.getParameter("model");
+        int year = Integer.parseInt(request.getParameter("year"));
+        String type = request.getParameter("type");
+        int seats = Integer.parseInt(request.getParameter("seats"));
+
+        Car newCar = new Car(licensePlate, manufacturer, model, year, type, seats);
+        carDao.saveCar(newCar);
+        response.sendRedirect("carSuccess.jsp");
+    }
+
+    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Car existingCar = carDao.getCar(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("carForm.jsp");
+        request.setAttribute("car", existingCar);
+        dispatcher.forward(request, response);
+
+    }
+
+    private void deleteCar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        carDao.deleteCar(id);
+        response.sendRedirect("list");
+    }
+
 
     @Override
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getServletPath();
+        String action = "";
+
+        if (request.getParameter("action") != null) {
+            action = request.getParameter("action");
+        }
 
         try {
             switch (action) {
-                case "/newCar":
-                    showNewCarForm(request, response);
+
+                case "newCar":
+                    showNewForm(request, response);
                     break;
-                case "/insertCar":
-                    insertCar(request, response);
-                    break;
-                case "/deleteCar":
-                    deleteCar(request, response);
-                    break;
-                case "/editCar":
-                    showEditCarForm(request, response);
-                    break;
-                case "/updateCar":
+                case "updateCar":
                     updateCar(request, response);
                     break;
                 default:
@@ -60,32 +108,11 @@ public class CarServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    private void showNewCarForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("carForm.jsp");
         dispatcher.forward(request, response);
     }
 
-    private void showEditCarForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        Car existingCar = carDao.getCar(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("carForm.jsp");
-        request.setAttribute("car", existingCar);
-        dispatcher.forward(request, response);
-
-    }
-
-    private void insertCar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-        String licensePlate = request.getParameter("licensePlate");
-        String manufacturer = request.getParameter("manufacturer");
-        String model = request.getParameter("model");
-        int year = Integer.parseInt(request.getParameter("year"));
-        String type = request.getParameter("type");
-        int seats = Integer.parseInt(request.getParameter("seats"));
-
-        Car newCar = new Car(licensePlate, manufacturer, model, year, type, seats);
-        carDao.saveCar(newCar);
-        response.sendRedirect("carList.jsp");
-    }
 
     private void updateCar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
@@ -102,11 +129,6 @@ public class CarServlet extends HttpServlet {
         response.sendRedirect("carList.jsp");
     }
 
-    private void deleteCar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        carDao.deleteCar(id);
-        response.sendRedirect("carList.jsp");
-    }
 }
 
 

@@ -18,68 +18,33 @@ public class UserServlet extends HttpServlet {
 
     @Override
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doGet(request, response);
-    }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = "";
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String action = request.getServletPath();
+        if (request.getParameter("action") != null) {
+            action = request.getParameter("action");
+        }
 
         try {
             switch (action) {
-                case "/newUser":
-                    showNewForm(request, response);
-                    break;
-                case "/insertUser":
+
+                case "insertUser":
                     insertUser(request, response);
                     break;
-                case "/deleteUser":
+                case "deleteUser":
                     deleteUser(request, response);
                     break;
-                case "/editUser":
+                case "editUser":
                     showEditForm(request, response);
                     break;
-                case "/updateUser":
-                    updateUser(request, response);
-                    break;
-                default:
-                    listUser(request, response);
-                    break;
+
             }
         } catch (SQLException ex) {
             throw new ServletException(ex);
         }
     }
 
-    private void listUser(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException, ServletException {
-        List<User> listUser = userDao.getUsers();
-        request.setAttribute("listUser", listUser);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("userList.jsp");
-        dispatcher.forward(request, response);
-    }
-
-    private void showNewForm(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("userForm.jsp");
-        dispatcher.forward(request, response);
-    }
-
-    private void showEditForm(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        User existingUser = userDao.getUser(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("userForm.jsp");
-        request.setAttribute("user", existingUser);
-        dispatcher.forward(request, response);
-
-    }
-
-    private void insertUser(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException {
+    private void insertUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -89,11 +54,65 @@ public class UserServlet extends HttpServlet {
 
         User newUser = new User(firstName, lastName, birthDate, username, password);
         userDao.saveUser(newUser);
+        response.sendRedirect("userSuccess.jsp");
+    }
+
+    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        User existingUser = userDao.getUser(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("userForm.jsp");
+        request.setAttribute("user", existingUser);
+        dispatcher.forward(request, response);
+
+    }
+
+    private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        userDao.deleteUser(id);
         response.sendRedirect("list");
     }
 
-    private void updateUser(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = "";
+
+        if (request.getParameter("action") != null) {
+            action = request.getParameter("action");
+        }
+
+        try {
+            switch (action) {
+                case "newUser":
+                    showNewForm(request, response);
+                    break;
+
+                case "updateUser":
+                    updateUser(request, response);
+                    break;
+
+                default:
+                    listUser(request, response);
+                    break;
+            }
+        } catch (SQLException ex) {
+            throw new ServletException(ex);
+        }
+    }
+
+    private void listUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+        List<User> listUser = userDao.getUsers();
+        request.setAttribute("listUser", listUser);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("userList.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("userForm.jsp");
+        dispatcher.forward(request, response);
+    }
+
+
+    private void updateUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
@@ -108,11 +127,5 @@ public class UserServlet extends HttpServlet {
         response.sendRedirect("list");
     }
 
-    private void deleteUser(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        userDao.deleteUser(id);
-        response.sendRedirect("list");
-    }
 }
 

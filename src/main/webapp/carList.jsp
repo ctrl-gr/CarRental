@@ -12,9 +12,9 @@
 <div class="text-center">
   <h1>Car Management</h1>
   <h2>
-    <a href="CarServlet/newCar">Add new car</a>
+    <a href="CarServlet?action=newCar">Add new car</a>
     &nbsp;&nbsp;&nbsp;
-    <a href="CarServlet/listCar">List all car</a>
+    <a href="CarServlet?action=listCar">List all car</a>
 
   </h2>
 </div>
@@ -31,7 +31,7 @@
   </tr>
   <c:forEach var="car" items="${listCar}">
     <tr>
-      <td><c:out value="${car.licensePlate}"/></td>
+      <td><c:out value="${car.license_plate}"/></td>
       <td><c:out value="${car.manufacturer}"/></td>
       <td><c:out value="${car.model}"/></td>
       <td><c:out value="${car.year}"/></td>

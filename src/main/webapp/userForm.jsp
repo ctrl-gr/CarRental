@@ -12,15 +12,15 @@
 <div class="text-center">
     <h1>User Management</h1>
     <h2>
-        <a href="UserServlet/newUser">Add New User</a>
+        <a href="UserServlet?action=newUser">Add New User</a>
         &nbsp;&nbsp;&nbsp;
-        <a href="USerServlet/listUser">List All Users</a>
+        <a href="UserServlet?action=listUser">List All Users</a>
     </h2>
 </div>
 
 <div class="center">
 
-        <form action="UserServlet" method="post">
+        <form action="UserServlet?action=insertUser" method="post">
             <table class="table table-dark">
                 <tr>
                     <th>First Name:</th>
