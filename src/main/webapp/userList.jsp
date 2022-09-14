@@ -19,6 +19,8 @@
     </h2>
 </div>
 
+<!-- TODO: cant' do edit and delete action. Find a solution -->
+
 <table class="table table-dark">
     <tr>
         <th>First Name</th>

@@ -31,7 +31,7 @@
   </tr>
   <c:forEach var="car" items="${listCar}">
     <tr>
-      <td><c:out value="${car.license_plate}"/></td>
+      <td><c:out value="${car.licensePlate}"/></td>
       <td><c:out value="${car.manufacturer}"/></td>
       <td><c:out value="${car.model}"/></td>
       <td><c:out value="${car.year}"/></td>

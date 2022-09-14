@@ -15,7 +15,7 @@ import java.util.List;
 @WebServlet("/UserServlet")
 public class UserServlet extends HttpServlet {
     private UserDao userDao = new UserDao();
-
+//TODO: fix edit and delete actions. Create a login and logout servlet, login jsp and check login method
     @Override
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,9 +28,10 @@ public class UserServlet extends HttpServlet {
         try {
             switch (action) {
 
-                case "insertUser":
-                    insertUser(request, response);
+                case "registerUser":
+                    registerUser(request, response);
                     break;
+
                 case "deleteUser":
                     deleteUser(request, response);
                     break;
@@ -38,13 +39,14 @@ public class UserServlet extends HttpServlet {
                     showEditForm(request, response);
                     break;
 
+
             }
         } catch (SQLException ex) {
             throw new ServletException(ex);
         }
     }
 
-    private void insertUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+    private void registerUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -54,7 +56,7 @@ public class UserServlet extends HttpServlet {
 
         User newUser = new User(firstName, lastName, birthDate, username, password);
         userDao.saveUser(newUser);
-        response.sendRedirect("userSuccess.jsp");
+        response.sendRedirect("registerSuccess.jsp");
     }
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
@@ -69,8 +71,9 @@ public class UserServlet extends HttpServlet {
     private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         userDao.deleteUser(id);
-        response.sendRedirect("list");
+        response.sendRedirect("listUser");
     }
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -124,7 +127,7 @@ public class UserServlet extends HttpServlet {
         User user = new User(firstName, lastName, birthDate, username, password);
 
         userDao.updateUser(user);
-        response.sendRedirect("list");
+        response.sendRedirect("listUser");
     }
 
 }

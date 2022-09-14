@@ -70,7 +70,7 @@ public class CarServlet extends HttpServlet {
     private void deleteCar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         carDao.deleteCar(id);
-        response.sendRedirect("list");
+        response.sendRedirect("listCar");
     }
 
 
@@ -126,7 +126,7 @@ public class CarServlet extends HttpServlet {
         Car newCar = new Car(licensePlate, manufacturer, model, year, type, seats);
 
         carDao.updateCar(newCar);
-        response.sendRedirect("carList.jsp");
+        response.sendRedirect("listCar");
     }
 
 }
