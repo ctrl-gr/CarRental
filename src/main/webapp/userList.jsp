@@ -19,7 +19,6 @@
     </h2>
 </div>
 
-<!-- TODO: cant' do edit and delete action. Find a solution -->
 
 <table class="table table-dark">
     <tr>
@@ -38,9 +37,9 @@
             <td><c:out value="${user.username}"/></td>
             <td><c:out value="${user.password}"/></td>
             <td>
-                <a href="UserServlet?action=editUser?id=<c:out value='${user.id}' />">Edit</a>
+                <a href="UserServlet?action=editUser&id=<c:out value='${user.id}' />">Edit</a>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="UserServlet?action=deleteUser?id=<c:out value='${user.id}' />">Delete</a>
+                <a href="UserServlet?action=deleteUser&id=<c:out value='${user.id}' />">Delete</a>
             </td>
         </tr>
     </c:forEach>

@@ -15,7 +15,7 @@ import java.util.List;
 @WebServlet("/UserServlet")
 public class UserServlet extends HttpServlet {
     private UserDao userDao = new UserDao();
-//TODO: fix edit and delete actions. Create a login and logout servlet, login jsp and check login method
+//TODO: send redirect to user list. Create a login and logout servlet, login jsp and check login method
     @Override
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,12 +32,8 @@ public class UserServlet extends HttpServlet {
                     registerUser(request, response);
                     break;
 
-                case "deleteUser":
-                    deleteUser(request, response);
-                    break;
-                case "editUser":
-                    showEditForm(request, response);
-                    break;
+
+
 
 
             }
@@ -59,21 +55,6 @@ public class UserServlet extends HttpServlet {
         response.sendRedirect("registerSuccess.jsp");
     }
 
-    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        User existingUser = userDao.getUser(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("userForm.jsp");
-        request.setAttribute("user", existingUser);
-        dispatcher.forward(request, response);
-
-    }
-
-    private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        userDao.deleteUser(id);
-        response.sendRedirect("listUser");
-    }
-
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -88,9 +69,15 @@ public class UserServlet extends HttpServlet {
                 case "newUser":
                     showNewForm(request, response);
                     break;
-
+                case "editUser":
+                    showEditForm(request, response);
+                    break;
                 case "updateUser":
                     updateUser(request, response);
+                    break;
+
+                case "deleteUser":
+                    deleteUser(request, response);
                     break;
 
                 default:
@@ -114,6 +101,14 @@ public class UserServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        User existingUser = userDao.getUser(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("userForm.jsp");
+        request.setAttribute("user", existingUser);
+        dispatcher.forward(request, response);
+
+    }
 
     private void updateUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
@@ -127,6 +122,12 @@ public class UserServlet extends HttpServlet {
         User user = new User(firstName, lastName, birthDate, username, password);
 
         userDao.updateUser(user);
+        response.sendRedirect("listUser");
+    }
+
+    private void deleteUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        userDao.deleteUser(id);
         response.sendRedirect("listUser");
     }
 

@@ -35,9 +35,6 @@ public class CarServlet extends HttpServlet {
                 case "deleteCar":
                     deleteCar(request, response);
                     break;
-                case "editCar":
-                    showEditForm(request, response);
-                    break;
 
             }
         } catch (SQLException ex) {
@@ -58,14 +55,6 @@ public class CarServlet extends HttpServlet {
         response.sendRedirect("carSuccess.jsp");
     }
 
-    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        Car existingCar = carDao.getCar(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("carForm.jsp");
-        request.setAttribute("car", existingCar);
-        dispatcher.forward(request, response);
-
-    }
 
     private void deleteCar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
@@ -91,6 +80,9 @@ public class CarServlet extends HttpServlet {
                     break;
                 case "updateCar":
                     updateCar(request, response);
+                    break;
+                case "editCar":
+                    showEditForm(request, response);
                     break;
                 default:
                     listCar(request, response);
@@ -127,6 +119,15 @@ public class CarServlet extends HttpServlet {
 
         carDao.updateCar(newCar);
         response.sendRedirect("listCar");
+    }
+
+    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Car existingCar = carDao.getCar(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("carForm.jsp");
+        request.setAttribute("car", existingCar);
+        dispatcher.forward(request, response);
+
     }
 
 }
