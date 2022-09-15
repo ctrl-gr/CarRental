@@ -12,56 +12,30 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-@WebServlet("/CarServlet")
+@WebServlet(name = "CarServlet", value = "/CarServlet")
 public class CarServlet extends HttpServlet {
 
     private CarDao carDao = new CarDao();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = "";
-
-        if (request.getParameter("action") != null) {
-            action = request.getParameter("action");
-        }
 
         try {
-            switch (action) {
+            String licensePlate = request.getParameter("licensePlate");
+            String manufacturer = request.getParameter("manufacturer");
+            String model = request.getParameter("model");
+            int year = Integer.parseInt(request.getParameter("year"));
+            String type = request.getParameter("type");
+            int seats = Integer.parseInt(request.getParameter("seats"));
 
-                case "insertCar":
-                    insertCar(request, response);
-                    break;
+            Car newCar = new Car(licensePlate, manufacturer, model, year, type, seats);
+            carDao.saveCar(newCar);
+            response.sendRedirect("carSuccess.jsp");
 
-                case "deleteCar":
-                    deleteCar(request, response);
-                    break;
-
-            }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             throw new ServletException(ex);
         }
     }
-
-    private void insertCar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-        String licensePlate = request.getParameter("licensePlate");
-        String manufacturer = request.getParameter("manufacturer");
-        String model = request.getParameter("model");
-        int year = Integer.parseInt(request.getParameter("year"));
-        String type = request.getParameter("type");
-        int seats = Integer.parseInt(request.getParameter("seats"));
-
-        Car newCar = new Car(licensePlate, manufacturer, model, year, type, seats);
-        carDao.saveCar(newCar);
-        response.sendRedirect("carSuccess.jsp");
-    }
-
-
-    private void deleteCar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        carDao.deleteCar(id);
-        response.sendRedirect("listCar");
-    }
-
 
     @Override
 
@@ -83,6 +57,9 @@ public class CarServlet extends HttpServlet {
                     break;
                 case "editCar":
                     showEditForm(request, response);
+                    break;
+                case "deleteCar":
+                    deleteCar(request, response);
                     break;
                 default:
                     listCar(request, response);
@@ -128,6 +105,12 @@ public class CarServlet extends HttpServlet {
         request.setAttribute("car", existingCar);
         dispatcher.forward(request, response);
 
+    }
+
+    private void deleteCar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        carDao.deleteCar(id);
+        response.sendRedirect("listCar");
     }
 
 }

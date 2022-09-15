@@ -12,37 +12,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
-@WebServlet("/UserServlet")
+@WebServlet(name="UserServlet", value="/UserServlet")
 public class UserServlet extends HttpServlet {
     private UserDao userDao = new UserDao();
-//TODO: send redirect to user list. Create a login and logout servlet, login jsp and check login method
+
+    //TODO: send redirect to user list. Logout servlet. Booking servlet
     @Override
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = "";
 
-        if (request.getParameter("action") != null) {
-            action = request.getParameter("action");
-        }
-
-        try {
-            switch (action) {
-
-                case "registerUser":
-                    registerUser(request, response);
-                    break;
-
-
-
-
-
-            }
-        } catch (SQLException ex) {
-            throw new ServletException(ex);
-        }
-    }
-
-    private void registerUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -52,7 +30,7 @@ public class UserServlet extends HttpServlet {
 
         User newUser = new User(firstName, lastName, birthDate, username, password);
         userDao.saveUser(newUser);
-        response.sendRedirect("registerSuccess.jsp");
+        response.sendRedirect("userSuccess.jsp");
     }
 
 

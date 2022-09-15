@@ -1,7 +1,7 @@
 package com.carrental.util;
 
+import com.carrental.entities.Booking;
 import com.carrental.entities.Car;
-import com.carrental.entities.Rent;
 import com.carrental.entities.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -32,7 +32,7 @@ public class HibernateUtil {
                 configuration.setProperties(settings);
                 configuration.addAnnotatedClass(User.class);
                 configuration.addAnnotatedClass(Car.class);
-                configuration.addAnnotatedClass(Rent.class);
+                configuration.addAnnotatedClass(Booking.class);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
 

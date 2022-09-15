@@ -82,6 +82,12 @@ public class UserDao {
         return user;
     }
 
+    public User getUserByUsername(String username){
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("from User where username = '" + username + "'", User.class).getSingleResult();
+        }
+    }
+
     public List<User> getUsers() {
         Transaction transaction = null;
         List<User> listOfUser = null;

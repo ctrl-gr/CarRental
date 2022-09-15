@@ -25,6 +25,12 @@ public class CarDao {
         }
     }
 
+    public Car getCarByLicensePlate(String licensePlate){
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("from Car where licensePlate = '" + licensePlate + "'", Car.class).getSingleResult();
+        }
+    }
+
     public void updateCar(Car car) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {

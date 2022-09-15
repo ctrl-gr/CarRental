@@ -14,12 +14,12 @@
         <th>End Date</th>
         <th>Approved</th>
     </tr>
-    <c:forEach var="rent" items="${rentList}">
+    <c:forEach var="booking" items="${rentList}">
     <tr>
-        <th><c:out value="${rent.id}" /></th>
-        <th><c:out value="${rent.carId}" /></th>
-        <th><c:out value="${rent.startDate}" /></th>
-        <th><c:out value="${rent.endDate}" /></th>
+        <th><c:out value="${booking.id}" /></th>
+        <th><c:out value="${booking.carId}" /></th>
+        <th><c:out value="${booking.startDate}" /></th>
+        <th><c:out value="${booking.endDate}" /></th>
         </c:forEach>
     </tr>
 </table>

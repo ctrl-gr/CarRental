@@ -1,39 +1,43 @@
 package com.carrental.entities;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "rent")
 
-public class Rent {
+public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "rent_id")
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "car_id", insertable = false, updatable = false)
+    @JoinColumn(name = "car_id")
     private Car car;
 
     @Column(name = "start_date")
-    private Date startDate;
+    private LocalDate startDate;
 
     @Column(name = "end_date")
-    private Date endDate;
+    private LocalDate endDate;
 
     @Column(name = "is_approved")
     private boolean isApproved;
 
-    public Rent() {
+    public Booking() {
 
     }
 
-    public Rent(User user, Car car, Date startDate, Date endDate, boolean isApproved) {
+    public Booking(User user, Car car, LocalDate startDate, LocalDate endDate) {
+
+    }
+
+    public Booking(User user, Car car, LocalDate startDate, LocalDate endDate, boolean isApproved) {
         this.user = user;
         this.car = car;
         this.startDate = startDate;
@@ -61,28 +65,28 @@ public class Rent {
         this.user = user;
     }
 
-    public Car getAuto() {
+    public Car getCar() {
 
         return car;
     }
 
-    public void setAuto(Car car) {
+    public void setCar(Car car) {
         this.car = car;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -96,7 +100,7 @@ public class Rent {
 
     @Override
     public String toString() {
-        return "Rent [id=" + id + ", Data di inizio =" + startDate + ", Data di fine =" + endDate + ", Approvato =" + isApproved + "]";
+        return "Booking [id=" + id + "username =" + user + "targa =" + car + ", Data di inizio =" + startDate + ", Data di fine =" + endDate + ", Approvato =" + isApproved + "]";
     }
 
 }
