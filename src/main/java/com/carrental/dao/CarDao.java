@@ -53,7 +53,8 @@ public class CarDao {
                 bookedCars.add(booking.getCar().getId());
             }
             Criteria criteriaCars = session.createCriteria(Car.class);
-            //TODO check all the conditions to this criteria
+            //TODO test this criteria with all possible conditions
+            //TODO remove delete and edit from action in available car
             //TODO put error messages like "invalid username, try again"
 
             criteriaCars.add(Restrictions.not(Restrictions.in("id", bookedCars)));
