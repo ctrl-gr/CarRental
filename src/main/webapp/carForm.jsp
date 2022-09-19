@@ -20,7 +20,7 @@
 
 <div class="center">
 
-    <form action="CarServlet?action=insertCar" method="post">
+    <form action="CarServlet?action=saveCar" method="post">
         <table class="table table-dark">
             <tr>
                 <th>License Plate:</th>

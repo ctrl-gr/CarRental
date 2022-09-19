@@ -1,6 +1,5 @@
 import com.carrental.dao.UserDao;
 import com.carrental.entities.User;
-import com.carrental.util.LoginBean;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

@@ -16,7 +16,6 @@ import java.util.List;
 public class UserServlet extends HttpServlet {
     private UserDao userDao = new UserDao();
 
-    //TODO: send redirect to user list. Logout servlet. Booking servlet
     @Override
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

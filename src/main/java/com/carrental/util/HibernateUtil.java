@@ -20,7 +20,7 @@ public class HibernateUtil {
         //Hybernate settings equivalent to hibernate.cfg.xml
                 Properties settings = new Properties();
                 settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
-                settings.put(Environment.URL, "jdbc:mysql://localhost:3306/rental_db?useSSL=false");
+                settings.put(Environment.URL, "jdbc:mysql://localhost:3306/rental_db?useSSL=false&serverTimezone=Europe/Rome");
                 settings.put(Environment.USER, "root");
                 settings.put(Environment.PASS, "Ginopino9-");
                 settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL5Dialect");

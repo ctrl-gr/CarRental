@@ -1,6 +1,7 @@
 package com.carrental.dao;
 
 import com.carrental.entities.Booking;
+import com.carrental.entities.Car;
 import com.carrental.entities.User;
 import com.carrental.util.HibernateUtil;
 import org.hibernate.Session;
@@ -47,8 +48,19 @@ public class BookingDao {
     }
 
     public List <Booking> getBookings() {
+        Transaction transaction = null;
+        List<Booking> listOfBookings = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from Booking", Booking.class).list();
+            transaction = session.beginTransaction();
+            listOfBookings = session.createQuery("FROM Booking").getResultList();
+            transaction.commit();
+
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
         }
+        return listOfBookings;
     }
 }

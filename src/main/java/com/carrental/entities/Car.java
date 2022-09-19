@@ -105,6 +105,7 @@ public class Car {
         this.seats = seats;
     }
 
+
     public Car(String licensePlate, String manufacturer, String model, int year, String type, int seats) {
         this.licensePlate = licensePlate;
         this.manufacturer = manufacturer;

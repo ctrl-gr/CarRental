@@ -4,12 +4,12 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "rent")
+@Table(name = "booking")
 
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "rent_id")
+    @Column(name = "booking_id")
     private int id;
 
     @ManyToOne
@@ -26,8 +26,8 @@ public class Booking {
     @Column(name = "end_date")
     private LocalDate endDate;
 
-    @Column(name = "is_approved")
-    private boolean isApproved;
+    @Column(name = "is_booked")
+    private boolean isBooked;
 
     public Booking() {
 
@@ -37,12 +37,12 @@ public class Booking {
 
     }
 
-    public Booking(User user, Car car, LocalDate startDate, LocalDate endDate, boolean isApproved) {
+    public Booking(User user, Car car, LocalDate startDate, LocalDate endDate, boolean isBooked) {
         this.user = user;
         this.car = car;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.isApproved = isApproved;
+        this.isBooked = isBooked;
     }
 
     public int getId() {
@@ -90,17 +90,17 @@ public class Booking {
         this.endDate = endDate;
     }
 
-    public boolean isApproved() {
-        return isApproved;
+    public boolean isBooked() {
+        return isBooked;
     }
 
-    public void setApproved(boolean approved) {
-        isApproved = approved;
+    public void setBooked(boolean booked) {
+        isBooked = booked;
     }
 
     @Override
     public String toString() {
-        return "Booking [id=" + id + "username =" + user + "targa =" + car + ", Data di inizio =" + startDate + ", Data di fine =" + endDate + ", Approvato =" + isApproved + "]";
+        return "Booking [id=" + id + "username =" + user + "targa =" + car + ", Data di inizio =" + startDate + ", Data di fine =" + endDate + ", Approvato =" + isBooked + "]";
     }
 
 }

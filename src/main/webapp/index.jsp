@@ -6,12 +6,13 @@
 </head>
 <body>
 <center>
-<h1><%= "Welcome!" %>
-</h1>
-<br/>
-    <a href="bookingForm.jsp">Make a reservation</a> <br/>
+    <h1><%= "Welcome!" %>
+    </h1>
+    <br/>
+    <a href="BookingServlet?action=newBooking">Make a reservation</a> <br/>
+    <a href="CarServlet?action=getAvailableCars">View our available cars</a> <br/>
     <a href="login.jsp">Login</a> <br/>
-<a href="UserServlet">User management area</a> <br/>
+    <a href="UserServlet">User management area</a> <br/>
     <a href="CarServlet">Car management area</a>
 </center>
 </body>

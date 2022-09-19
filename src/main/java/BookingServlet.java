@@ -32,7 +32,8 @@ public class BookingServlet extends HttpServlet {
         LocalDate startDate = LocalDate.parse(request.getParameter("startDate"), formatter);
         LocalDate endDate = LocalDate.parse(request.getParameter("endDate"), formatter);
 
-        Booking booking = new Booking(user, car, startDate, endDate, false);
+
+        Booking booking = new Booking(user, car, startDate, endDate, true);
         bookingDao.saveBooking(booking);
 
         response.sendRedirect("bookingSuccess.jsp");
