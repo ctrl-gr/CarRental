@@ -26,23 +26,32 @@ public class Booking {
     @Column(name = "end_date")
     private LocalDate endDate;
 
-    @Column(name = "is_booked")
-    private boolean isBooked;
+
+    @Column(name = "is_approved")
+    private boolean isApproved;
+
 
     public Booking() {
 
     }
 
-    public Booking(User user, Car car, LocalDate startDate, LocalDate endDate) {
-
-    }
-
-    public Booking(User user, Car car, LocalDate startDate, LocalDate endDate, boolean isBooked) {
+    public Booking(User user, Car car, LocalDate startDate, LocalDate endDate, boolean isApproved) {
         this.user = user;
         this.car = car;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.isBooked = isBooked;
+        this.isApproved = isApproved;
+
+    }
+
+    public Booking(int id, User user, Car car, LocalDate startDate, LocalDate endDate, boolean isApproved) {
+        this.id = id;
+        this.user = user;
+        this.car = car;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.isApproved = isApproved;
+
     }
 
     public int getId() {
@@ -90,17 +99,17 @@ public class Booking {
         this.endDate = endDate;
     }
 
-    public boolean isBooked() {
-        return isBooked;
+    public boolean getIsApproved() {
+        return isApproved;
     }
 
-    public void setBooked(boolean booked) {
-        isBooked = booked;
+    public void setIsApproved(boolean approved) {
+        isApproved = approved;
     }
 
     @Override
     public String toString() {
-        return "Booking [id=" + id + "username =" + user + "targa =" + car + ", Data di inizio =" + startDate + ", Data di fine =" + endDate + ", Approvato =" + isBooked + "]";
+        return "Booking [id=" + id + "username =" + user + "targa =" + car + ", Data di inizio =" + startDate + ", Data di fine =" + endDate + ", Approvato = " + isApproved + "]";
     }
 
 }

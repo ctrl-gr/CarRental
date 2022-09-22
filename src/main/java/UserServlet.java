@@ -43,8 +43,11 @@ public class UserServlet extends HttpServlet {
 
         try {
             switch (action) {
-                case "newUser":
+                case "newUserFromUser":
                     showNewForm(request, response);
+                    break;
+                case "newUserFromAdmin":
+                    showNewFormAdmin(request, response);
                     break;
                 case "editUser":
                     showEditForm(request, response);
@@ -74,14 +77,19 @@ public class UserServlet extends HttpServlet {
     }
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("userForm.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("userFormUser.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void showNewFormAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("userFormAdmin.jsp");
         dispatcher.forward(request, response);
     }
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         User existingUser = userDao.getUser(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("userForm.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("userFormUser.jsp");
         request.setAttribute("user", existingUser);
         dispatcher.forward(request, response);
 

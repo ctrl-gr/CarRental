@@ -5,13 +5,13 @@
 </head>
 <body>
 
-<form action="LoginServlet" method="post">
+<form action="LoginServlet?action=loginUser" method="post">
 
     Please enter your username
     <input type="text" name="username"/><br>
 
     Please enter your password
-    <input type="text" name="password"/>
+    <input type="password" name="password"/>
 
     <input type="submit" value="Login">
 

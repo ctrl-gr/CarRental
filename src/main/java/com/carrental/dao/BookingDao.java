@@ -25,7 +25,21 @@ public class BookingDao {
             e.printStackTrace();
         }
     }
+    public void updateBooking(Booking booking) {
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 
+            transaction = session.beginTransaction();
+            session.update(booking);
+            transaction.commit();
+
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
     public void deleteBooking(int id) {
 
         Transaction transaction = null;

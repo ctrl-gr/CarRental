@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>User added</title>
+    <title>Car booking approved</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -16,11 +16,8 @@
         </div>
     </div>
 </nav>
-<center>
-  <h1><%= "The user has been added successfully" %>
-  </h1>
-  <br/>
-  <a href="UserServlet?action=listUser">View all the users</a>
-</center>
+<h1>Your booking has been approved!</h1> <br/> <br/>
+<h2><a href="BookingServlet?action=listApprovedBooking">Display all the bookings</a></h2>
+
 </body>
 </html>

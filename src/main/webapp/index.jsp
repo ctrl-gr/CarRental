@@ -1,19 +1,15 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Car Rental</title>
 </head>
 <body>
 <center>
-    <h1><%= "Welcome!" %>
-    </h1>
-    <br/>
-    <a href="BookingServlet?action=newBooking">Make a reservation</a> <br/>
-    <a href="CarServlet?action=getAvailableCars">View our available cars</a> <br/>
-    <a href="login.jsp">Login</a> <br/>
-    <a href="UserServlet">User management area</a> <br/>
-    <a href="CarServlet">Car management area</a>
+    <h1>Welcome! </h1>
+    <a href="login.jsp"> User login </a> <br/> <br/>
+    <a href="UserServlet?action=newUserFromUser"> User registration</a> <br/> <br/>
+    <a href="adminLogin.jsp">Admin login</a>
 </center>
 </body>
 </html>

@@ -1,7 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>User added</title>
+    <title>Welcome admin!</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -17,10 +20,9 @@
     </div>
 </nav>
 <center>
-  <h1><%= "The user has been added successfully" %>
-  </h1>
-  <br/>
-  <a href="UserServlet?action=listUser">View all the users</a>
+    <a href="UserServlet">User management area</a> <br/>
+    <a href="CarServlet">Car management area</a> <br/>
+    <a href="BookingServlet">Booking management area</a>
 </center>
 </body>
 </html>

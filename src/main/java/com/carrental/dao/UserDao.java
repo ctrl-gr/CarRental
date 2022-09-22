@@ -6,7 +6,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.List;
 
 public class UserDao {
@@ -82,7 +81,7 @@ public class UserDao {
         return user;
     }
 
-    public User getUserByUsername(String username){
+    public User getUserByUsername(String username) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery("from User where username = '" + username + "'", User.class).getSingleResult();
         }
@@ -105,28 +104,54 @@ public class UserDao {
         return listOfUser;
     }
 
-    public static boolean validate(User user) throws ClassNotFoundException {
-        boolean status = false;
+    public boolean validate(String username, String password) {
 
-        Class.forName("com.mysql.jdbc.Driver");
+        Transaction transaction = null;
+        User user = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            // start a transaction
+            transaction = session.beginTransaction();
+            // get an user object
+            user = (User) session.createQuery("FROM User U WHERE U.username = :username").setParameter("username", username)
+                    .uniqueResult();
 
-        try (Connection connection = DriverManager
-                .getConnection("jdbc:mysql://localhost:3306/rental_db?useSSL=false", "root", "Ginopino9-");
-
-
-             PreparedStatement preparedStatement = connection
-                     .prepareStatement("select * from user where username = ? and password = ? ")) {
-            preparedStatement.setString(1, user.getUsername());
-            preparedStatement.setString(2, user.getPassword());
-
-            System.out.println(preparedStatement);
-            ResultSet rs = preparedStatement.executeQuery();
-            status = rs.next();
-
-        } catch (SQLException e) {
-            printSQLException(e);
+            if (user != null && user.getPassword().equals(password)) {
+                return true;
+            }
+            // commit transaction
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
         }
-        return status;
+        return false;
+    }
+
+    public boolean validateAdmin(String username, String password) {
+
+        Transaction transaction = null;
+        User user = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            // start a transaction
+            transaction = session.beginTransaction();
+            // get an user object
+            user = (User) session.createQuery("FROM User U WHERE U.username = :username").setParameter("username", username)
+                    .uniqueResult();
+
+            if (user != null && user.getPassword().equals("admin") && user.getUsername().equals("admin")) {
+                return true;
+            }
+            // commit transaction
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+        return false;
     }
 
     private static void printSQLException(SQLException ex) {

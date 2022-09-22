@@ -20,6 +20,8 @@
         </div>
     </div>
 </nav>
+
+
 <table class="table table-dark">
     <tr>
         <th>Booking ID</th>
@@ -27,11 +29,9 @@
         <th>Username</th>
         <th>Start Date</th>
         <th>End Date</th>
-        <th>Current status</th>
-        <th>Set status</th>
-        <th>Update</th>
+        <th>Status</th>
     </tr>
-    <c:forEach var="booking" items="${listBooking}">
+    <c:forEach var="booking" items="${listApprovedBooking}">
     <tr>
         <th><c:out value="${booking.id}"/></th>
         <th><c:out value="${booking.car.licensePlate}"/></th>
@@ -39,22 +39,6 @@
         <th><c:out value="${booking.startDate}"/></th>
         <th><c:out value="${booking.endDate}"/></th>
         <th><c:out value="${booking.isApproved}"/></th>
-        <th><select name="approved">
-            <option value="false"> False</option>
-            <option value="true"> True</option>
-        </select></th>
-        <td>
-            <form action="BookingServlet?action=approveBooking" method="post">
-                <input type="hidden" value="${booking.id}" name="bookingId"/>
-                <input type="hidden" value="${booking.car.id}" name="carId"/>
-                <input type="hidden" value="${booking.user.id}" name="userId"/>
-                <input type="hidden" value="${booking.startDate}" name="startDate"/>
-                <input type="hidden" value="${booking.endDate}" name="endDate"/>
-                <input type="submit" value="Update"/>
-
-            </form>
-            &nbsp;&nbsp;
-        </td>
         </c:forEach>
     </tr>
 </table>

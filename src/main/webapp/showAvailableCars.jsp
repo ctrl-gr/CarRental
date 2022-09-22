@@ -8,6 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+
+
+<h1>Reservation for <%=request.getAttribute("username") %></h1>
 <table class="table table-dark">
     <tr>
         <th>License Plate</th>
@@ -26,10 +29,16 @@
             <td><c:out value="${car.year}"/></td>
             <td><c:out value="${car.type}"/></td>
             <td><c:out value="${car.seats}"/></td>
-            <td>
-                <a href="editCar?id=<c:out value='${car.id}' />">Edit</a>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="deleteCar?id=<c:out value='${car.id}' />">Delete</a>
+
+            <td><form action="BookingServlet?action=saveBooking" method="post">
+                <input type="hidden" value="<%=request.getAttribute("username") %>" name="username" />
+                <input type="hidden" value="${car.id}" name="carId"/>
+                <input type="hidden" value="${startDate}" name="startDate" />
+                <input type="hidden" value="${endDate}" name="endDate" />
+                <input type="submit" value="Select" />
+
+            </form>
+            &nbsp;&nbsp;
             </td>
         </tr>
     </c:forEach>

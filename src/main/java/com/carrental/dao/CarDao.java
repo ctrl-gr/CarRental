@@ -13,6 +13,7 @@ import org.hibernate.metadata.ClassMetadata;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.carrental.util.HibernateUtil.getSessionFactory;
@@ -40,25 +41,32 @@ public class CarDao {
         }
     }
 
+
     public List<Car> getAvailableCars(LocalDate startDate, LocalDate endDate) {
         try (Session session = getSessionFactory().openSession()) {
             Criteria criteria = session.createCriteria(Booking.class);
             Criterion start = Restrictions.le("startDate", endDate);
             Criterion end = Restrictions.ge("endDate", startDate);
+
             criteria.add(Restrictions.and(start, end));
 
-            List<Booking> bookings = criteria.list();
-            ArrayList<Integer> bookedCars = new ArrayList<Integer>();
-            for (Booking booking : bookings) {
-                bookedCars.add(booking.getCar().getId());
-            }
-            Criteria criteriaCars = session.createCriteria(Car.class);
-            //TODO test this criteria with all possible conditions
-            //TODO remove delete and edit from action in available car
-            //TODO put error messages like "invalid username, try again"
 
-            criteriaCars.add(Restrictions.not(Restrictions.in("id", bookedCars)));
+            List<Booking> bookings = criteria.list();
+            List<Integer> bookedCars = new ArrayList<>();
+            for (Booking booking : bookings) {
+                if (booking.getCar() != null && !bookedCars.contains(booking.getCar().getId())) {
+                    bookedCars.add(booking.getCar().getId());
+                }
+            }
+
+            Criteria criteriaCars = session.createCriteria(Car.class);
+            if (bookedCars.size() > 0) {
+                Criterion notInAnyCars = Restrictions.not(Restrictions.in("id", bookedCars));
+                criteriaCars.add(notInAnyCars);
+            }
+
             List<Car> availableCars = criteriaCars.list();
+
             return availableCars;
         }
     }

@@ -57,12 +57,18 @@ public class CarServlet extends HttpServlet {
     }
 
     private void showAvailableCars(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+        HttpSession session = request.getSession();
+        String username = (String) session.getAttribute("username");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate startDate = LocalDate.parse(request.getParameter("startDate"), formatter);
         LocalDate endDate = LocalDate.parse(request.getParameter("endDate"), formatter);
+        request.setAttribute("username", username);
         request.setAttribute("availableCars", carDao.getAvailableCars(startDate, endDate));
+        request.setAttribute("startDate", request.getParameter("startDate"));
+        request.setAttribute("endDate", request.getParameter("endDate"));
         RequestDispatcher dispatcher = request.getRequestDispatcher("showAvailableCars.jsp");
         dispatcher.forward(request, response);
+
     }
 
 
@@ -111,8 +117,9 @@ public class CarServlet extends HttpServlet {
 
     private void getAvailableCars(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("getAvailableCars.jsp");
-        dispatcher.forward(request, response);
+        HttpSession session = request.getSession();
+        String username = (String) session.getAttribute("username");
+        response.sendRedirect("getAvailableCars.jsp?username=" + username);
     }
 
     private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

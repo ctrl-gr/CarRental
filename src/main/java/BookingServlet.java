@@ -18,26 +18,70 @@ import java.util.List;
 public class BookingServlet extends HttpServlet {
 
     private BookingDao bookingDao = new BookingDao();
+    CarDao carDao = new CarDao();
+    UserDao userDao = new UserDao();
 
     @Override
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        CarDao carDao = new CarDao();
-        UserDao userDao = new UserDao();
+        String action = "";
 
-        User user = userDao.getUserByUsername(request.getParameter("username"));
-        Car car = carDao.getCarByLicensePlate(request.getParameter("licensePlate"));
+        if (request.getParameter("action") != null) {
+            action = request.getParameter("action");
+        }
+
+        try {
+            switch (action) {
+                case "saveBooking":
+                    saveBooking(request, response);
+                    break;
+                case "approveBooking":
+                    approveBooking(request, response);
+                    break;
+                default:
+                    listBooking(request, response);
+                    break;
+            }
+            } catch(SQLException ex){
+                throw new ServletException(ex);
+            }
+        }
+
+
+    private void saveBooking(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+
+        HttpSession session = request.getSession();
+        String username = (String) session.getAttribute("username");
+        User user = userDao.getUserByUsername(username);
+        Car car = carDao.getCar(Integer.parseInt(request.getParameter("carId")));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate startDate = LocalDate.parse(request.getParameter("startDate"), formatter);
         LocalDate endDate = LocalDate.parse(request.getParameter("endDate"), formatter);
+        boolean isApproved = false;
 
-
-        Booking booking = new Booking(user, car, startDate, endDate, true);
+        Booking booking = new Booking(user, car, startDate, endDate, isApproved);
         bookingDao.saveBooking(booking);
 
         response.sendRedirect("bookingSuccess.jsp");
     }
+
+    private void approveBooking(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+
+        int id = Integer.parseInt(request.getParameter("bookingId"));
+        Car car = carDao.getCar(Integer.parseInt(request.getParameter("carId")));
+        User user = userDao.getUser(Integer.parseInt(request.getParameter("userId")));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate startDate = LocalDate.parse(request.getParameter("startDate"), formatter);
+        LocalDate endDate = LocalDate.parse(request.getParameter("endDate"), formatter);
+        boolean isApproved = true;
+
+        Booking booking = new Booking(id, user, car, startDate, endDate, isApproved);
+        bookingDao.updateBooking(booking);
+
+        response.sendRedirect("bookingApproved.jsp");
+    }
+
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
             ServletException, IOException {
@@ -57,6 +101,10 @@ public class BookingServlet extends HttpServlet {
                     deleteBooking(request, response);
                     break;
 
+                case "listApprovedBooking":
+                    listApprovedBooking(request, response);
+                    break;
+
                 default:
                     listBooking(request, response);
                     break;
@@ -70,6 +118,13 @@ public class BookingServlet extends HttpServlet {
         List<Booking> listBooking = bookingDao.getBookings();
         request.setAttribute("listBooking", listBooking);
         RequestDispatcher dispatcher = request.getRequestDispatcher("bookingList.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void listApprovedBooking(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+        List<Booking> listApprovedBooking = bookingDao.getBookings();
+        request.setAttribute("listApprovedBooking", listApprovedBooking);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("approvedBookingList.jsp");
         dispatcher.forward(request, response);
     }
 
