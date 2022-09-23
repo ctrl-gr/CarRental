@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand">Car rental</a>
 
@@ -19,7 +20,11 @@
             <a class="nav-item nav-link" href="CarServlet">Car management</a>
         </div>
     </div>
+
 </nav>
+<div class="text-center">
+    <h1>Booking Management</h1>
+</div>
 <table class="table table-dark">
     <tr>
         <th>Booking ID</th>
@@ -30,6 +35,7 @@
         <th>Current status</th>
         <th>Set status</th>
         <th>Update</th>
+        <th>Delete</th>
     </tr>
     <c:forEach var="booking" items="${listBooking}">
     <tr>
@@ -55,6 +61,7 @@
             </form>
             &nbsp;&nbsp;
         </td>
+        <td><a href="BookingServlet?action=deleteBooking&id=<c:out value='${booking.id}' />">Delete</a> </td>
         </c:forEach>
     </tr>
 </table>

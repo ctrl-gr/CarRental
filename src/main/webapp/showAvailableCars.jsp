@@ -8,9 +8,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand">Car rental</a>
+
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="homepage.jsp">Homepage</a>
+            <a class="nav-item nav-link" href="CarServlet?action=getAvailableCars">Make a new reservation</a>
+            <a class="nav-item nav-link" href="BookingServlet?action=showMyBookings">Show my bookings</a>
+        </div>
+    </div>
+
+</nav>
 
 
-<h1>Reservation for <%=request.getAttribute("username") %></h1>
+<h1>Please <%=request.getAttribute("username") %>, select a car: </h1>
 <table class="table table-dark">
     <tr>
         <th>License Plate</th>

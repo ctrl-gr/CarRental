@@ -114,6 +114,15 @@ public class Car {
         this.type = type;
         this.seats = seats;
     }
+    public Car(int id, String licensePlate, String manufacturer, String model, int year, String type, int seats) {
+        this.id = id;
+        this.licensePlate = licensePlate;
+        this.manufacturer = manufacturer;
+        this.model = model;
+        this.year = year;
+        this.type = type;
+        this.seats = seats;
+    }
 
     @Override
     public String toString() {

@@ -19,7 +19,7 @@
 
 <div class="center">
 
-        <form action="UserServlet?action=insertUser" method="post">
+        <form action="UserServlet?action=saveUserFromUser" method="post">
             <table class="table table-dark">
                 <tr>
                     <th>First Name:</th>

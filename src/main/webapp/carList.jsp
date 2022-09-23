@@ -48,9 +48,9 @@
       <td><c:out value="${car.type}"/></td>
       <td><c:out value="${car.seats}"/></td>
       <td>
-        <a href="CarServlet?action=editCar&id=<c:out value='${car.id}' />">Edit</a>
+        <a href="CarServlet?action=editCar&id=<c:out value='${car.id}'/>">Edit</a>
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="CarServlet?action=deleteCar&id=<c:out value='${car.id}' />">Delete</a>
+        <a href="CarServlet?action=deleteCar&id=<c:out value='${car.id}'/>">Delete</a>
       </td>
     </tr>
   </c:forEach>

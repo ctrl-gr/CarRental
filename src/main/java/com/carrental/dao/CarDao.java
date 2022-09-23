@@ -35,12 +35,6 @@ public class CarDao {
         }
     }
 
-    public Car getCarByLicensePlate(String licensePlate) {
-        try (Session session = getSessionFactory().openSession()) {
-            return session.createQuery("from Car where licensePlate = '" + licensePlate + "'", Car.class).getSingleResult();
-        }
-    }
-
 
     public List<Car> getAvailableCars(LocalDate startDate, LocalDate endDate) {
         try (Session session = getSessionFactory().openSession()) {

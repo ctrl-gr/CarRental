@@ -31,6 +31,9 @@ public class CarServlet extends HttpServlet {
                 case "saveCar":
                     saveCar(request, response);
                     break;
+                case "updateCar":
+                    updateCar(request, response);
+                    break;
 
                 case "showAvailableCars":
                     showAvailableCars(request, response);
@@ -54,6 +57,21 @@ public class CarServlet extends HttpServlet {
         carDao.saveCar(newCar);
         response.sendRedirect("carSuccess.jsp");
 
+    }
+
+    private void updateCar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+
+        int id = Integer.parseInt(request.getParameter("carId"));
+        String licensePlate = request.getParameter("licensePlate");
+        String manufacturer = request.getParameter("manufacturer");
+        String model = request.getParameter("model");
+        int year = Integer.parseInt(request.getParameter("year"));
+        String type = request.getParameter("type");
+        int seats = Integer.parseInt(request.getParameter("seats"));
+
+        Car existingCar = new Car(id, licensePlate, manufacturer, model, year, type, seats);
+        carDao.updateCar(existingCar);
+        response.sendRedirect("CarServlet?action=listCar");
     }
 
     private void showAvailableCars(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
@@ -90,9 +108,6 @@ public class CarServlet extends HttpServlet {
                 case "editCar":
                     showEditForm(request, response);
                     break;
-                case "updateCar":
-                    updateCar(request, response);
-                    break;
                 case "getAvailableCars":
                     getAvailableCars(request, response);
                     break;
@@ -127,26 +142,10 @@ public class CarServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-
-    private void updateCar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        String licensePlate = request.getParameter("licensePlate");
-        String manufacturer = request.getParameter("manufacturer");
-        String model = request.getParameter("model");
-        int year = Integer.parseInt(request.getParameter("year"));
-        String type = request.getParameter("type");
-        int seats = Integer.parseInt(request.getParameter("seats"));
-
-        Car newCar = new Car(licensePlate, manufacturer, model, year, type, seats);
-
-        carDao.updateCar(newCar);
-        response.sendRedirect("listCar");
-    }
-
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         Car existingCar = carDao.getCar(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("carForm.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("carEditForm.jsp");
         request.setAttribute("car", existingCar);
         dispatcher.forward(request, response);
 

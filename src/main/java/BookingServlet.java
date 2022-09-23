@@ -39,6 +39,9 @@ public class BookingServlet extends HttpServlet {
                 case "approveBooking":
                     approveBooking(request, response);
                     break;
+                case "showMyBookings":
+                    showMyBookings(request, response);
+                    break;
                 default:
                     listBooking(request, response);
                     break;
@@ -83,6 +86,8 @@ public class BookingServlet extends HttpServlet {
     }
 
 
+
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
             ServletException, IOException {
         String action = "";
@@ -96,15 +101,16 @@ public class BookingServlet extends HttpServlet {
                 case "newBooking":
                     showNewForm(request, response);
                     break;
-
                 case "deleteBooking":
                     deleteBooking(request, response);
                     break;
-
                 case "listApprovedBooking":
                     listApprovedBooking(request, response);
                     break;
-
+                    // messo sia qui che nella post perché nel caso della navbar faccio una get
+                case "showMyBookings":
+                    showMyBookings(request, response);
+                    break;
                 default:
                     listBooking(request, response);
                     break;
@@ -119,6 +125,20 @@ public class BookingServlet extends HttpServlet {
         request.setAttribute("listBooking", listBooking);
         RequestDispatcher dispatcher = request.getRequestDispatcher("bookingList.jsp");
         dispatcher.forward(request, response);
+    }
+
+    private void showMyBookings(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+
+        HttpSession session = request.getSession();
+        int userId = (int) session.getAttribute("userId");
+        String username = (String) request.getAttribute("username");
+        User user = userDao.getUser(userId);
+        List<Booking> myBookings = bookingDao.getBookingsByUser(user);
+        request.setAttribute("BookingsByUser", myBookings);
+        request.setAttribute("username", username);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("userBookingList.jsp?username=" + username);
+        dispatcher.forward(request, response);
+
     }
 
     private void listApprovedBooking(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
@@ -136,7 +156,7 @@ public class BookingServlet extends HttpServlet {
     private void deleteBooking(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         bookingDao.deleteBooking(id);
-        response.sendRedirect("listBooking");
+        response.sendRedirect("BookingServlet?action=listBooking");
     }
 }
 

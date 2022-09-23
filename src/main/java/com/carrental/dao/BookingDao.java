@@ -4,8 +4,11 @@ import com.carrental.entities.Booking;
 import com.carrental.entities.Car;
 import com.carrental.entities.User;
 import com.carrental.util.HibernateUtil;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 
@@ -76,5 +79,18 @@ public class BookingDao {
             e.printStackTrace();
         }
         return listOfBookings;
+    }
+
+    public List<Booking> getBookingsByUser(User user) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Criteria criteria = session.createCriteria(Booking.class);
+            Criterion getByUser = Restrictions.eq("user", user);
+            criteria.add(getByUser);
+
+            List<Booking> bookingsByUser = criteria.list();
+
+            return bookingsByUser;
+        }
+
     }
 }

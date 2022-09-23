@@ -50,9 +50,12 @@ public class LoginServlet extends HttpServlet {
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        User user = userDao.getUserByUsername(username);
+        int userId = user.getId();
 
         if (userDao.validate(username, password)) {
             session.setAttribute("username", username);
+            session.setAttribute("userId", userId);
             response.sendRedirect("homepage.jsp?username=" + username);
         } else {
 
