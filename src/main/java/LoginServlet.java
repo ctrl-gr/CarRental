@@ -28,11 +28,8 @@ public class LoginServlet extends HttpServlet {
         try {
             switch (action) {
 
-                case "loginUser":
-                    loginUser(request, response);
-                    break;
-                case "loginAdmin":
-                    loginAdmin(request, response);
+                case "checkLogin":
+                    checkLogin(request, response);
                     break;
                 default:
                     loginNotSuccessful(request, response);
@@ -43,7 +40,7 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
-    private void loginUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+    private void checkLogin(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         HttpSession session = request.getSession();
@@ -52,38 +49,30 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         User user = userDao.getUserByUsername(username);
         int userId = user.getId();
+        username = user.getUsername();
 
-        if (userDao.validate(username, password)) {
-            session.setAttribute("username", username);
-            session.setAttribute("userId", userId);
-            response.sendRedirect("homepage.jsp?username=" + username);
-        } else {
+        if (username.equals("admin")) {
+            if (userDao.validateAdmin(username, password)) {
+                response.sendRedirect("adminHomepage.jsp");
+            }
+        } else if (userDao.validate(username, password)) {
+                session.setAttribute("username", username);
+                session.setAttribute("userId", userId);
+                response.sendRedirect("homepage.jsp?username=" + username);
+            } else {
+                response.sendRedirect("loginNotSuccessful.jsp");
+            }
 
-            response.sendRedirect("loginNotSuccessful.jsp");
+            out.close();
+
         }
 
-        out.close();
-    }
 
-    private void loginAdmin(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        HttpSession session = request.getSession();
 
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-
-        if (userDao.validateAdmin(username, password)) {
-            response.sendRedirect("adminHomepage.jsp");
-        } else {
-            response.sendRedirect("loginNotSuccessful.jsp");
-        }
-
-        out.close();
-    }
-
-    private void loginNotSuccessful(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+    private void loginNotSuccessful(HttpServletRequest request, HttpServletResponse response) throws
+            SQLException, IOException, ServletException {
         response.sendRedirect("loginNotSuccessful.jsp");
     }
 }
+
 

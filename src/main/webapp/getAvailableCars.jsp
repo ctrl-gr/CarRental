@@ -17,6 +17,7 @@
             <a class="nav-item nav-link active" href="homepage.jsp">Homepage</a>
             <a class="nav-item nav-link" href="CarServlet?action=getAvailableCars">Make a new reservation</a>
             <a class="nav-item nav-link" href="BookingServlet?action=showMyBookings">Show my bookings</a>
+            <a class="nav-item nav-link" href="LogoutServlet">Logout</a>
         </div>
     </div>
 

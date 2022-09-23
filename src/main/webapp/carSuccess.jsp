@@ -16,6 +16,7 @@
             <a class="nav-item nav-link" href="UserServlet">User management</a>
             <a class="nav-item nav-link" href="BookingServlet">Booking management</a>
             <a class="nav-item nav-link" href="CarServlet">Car management</a>
+            <a class="nav-item nav-link" href="LogoutServlet">Logout</a>
         </div>
     </div>
 </nav>

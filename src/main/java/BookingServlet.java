@@ -107,7 +107,6 @@ public class BookingServlet extends HttpServlet {
                 case "listApprovedBooking":
                     listApprovedBooking(request, response);
                     break;
-                    // messo sia qui che nella post perché nel caso della navbar faccio una get
                 case "showMyBookings":
                     showMyBookings(request, response);
                     break;

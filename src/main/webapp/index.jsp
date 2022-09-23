@@ -7,9 +7,9 @@
 <body>
 <center>
     <h1>Welcome! </h1>
-    <a href="login.jsp"> User login </a> <br/> <br/>
-    <a href="UserServlet?action=newUserFromUser"> User registration</a> <br/> <br/>
-    <a href="adminLogin.jsp">Admin login</a>
+    <a href="login.jsp"> Login </a> <br/> <br/>
+    <a href="UserServlet?action=newUserFromUser"> New registration</a> <br/> <br/>
+
 </center>
 </body>
 </html>

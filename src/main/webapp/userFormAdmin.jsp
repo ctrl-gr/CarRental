@@ -18,6 +18,7 @@
       <a class="nav-item nav-link" href="UserServlet">User management</a>
       <a class="nav-item nav-link" href="BookingServlet">Booking management</a>
       <a class="nav-item nav-link" href="CarServlet">Car management</a>
+      <a class="nav-item nav-link" href="LogoutServlet">Logout</a>
     </div>
   </div>
 </nav>
@@ -32,7 +33,7 @@
 
 <div class="center">
 
-  <form action="UserServlet?action=insertUser" method="post">
+  <form action="UserServlet?action=saveUser" method="post">
     <table class="table table-dark">
       <tr>
         <th>First Name:</th>

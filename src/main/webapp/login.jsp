@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<form action="LoginServlet?action=loginUser" method="post">
+<form action="LoginServlet?action=checkLogin" method="post">
 
     Please enter your username
     <input type="text" name="username"/><br>
