@@ -25,11 +25,11 @@
 
 <div class="center">
 
-<h2> Hi <c:out value="${username}" />.<br/> <br/>
+<h3> Hi <c:out value="${username}" />.<br/> <br/>
     Make your choice with the navbar. <br/>
     Enjoy!
 
-</h2>
+</h3>
 </div>
 
 

@@ -22,7 +22,8 @@
     </div>
 </nav>
 <div class="center">
-Hey admin. Make your choice with the navbar
+    <br/> <br/>
+    <h3> Hey admin. Make your choice with the navbar </h3>
 
 </div>
 </body>

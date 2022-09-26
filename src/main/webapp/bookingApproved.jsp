@@ -20,8 +20,8 @@
         </div>
     </div>
 </nav>
-<h1>Your booking has been approved!</h1> <br/> <br/>
-<h2><a href="BookingServlet?action=listApprovedBooking">Display all the bookings</a></h2>
+<h2>Your booking has been approved!</h2> <br/> <br/>
+<h2><a href="BookingServlet?action=listApprovedBooking">Display the updated booking</a></h2>
 
 </body>
 </html>
