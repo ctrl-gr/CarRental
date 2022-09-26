@@ -38,6 +38,8 @@ public class CarServlet extends HttpServlet {
                 case "showAvailableCars":
                     showAvailableCars(request, response);
                     break;
+                default:
+                    throw new Exception();
             }
 
         } catch (Exception ex) {

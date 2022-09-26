@@ -23,6 +23,8 @@
 
 </nav>
 
+<!-- TODO use taglib instead of a lot of JSP pages. Delete similar pages. -->
+
 <div class="center">
 
 <h3> Hi <c:out value="${username}" />.<br/> <br/>

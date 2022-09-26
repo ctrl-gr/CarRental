@@ -17,9 +17,9 @@ import java.util.List;
 @WebServlet(name = "BookingServlet", value = "/BookingServlet")
 public class BookingServlet extends HttpServlet {
 
-    private BookingDao bookingDao = new BookingDao();
-    CarDao carDao = new CarDao();
-    UserDao userDao = new UserDao();
+    private final BookingDao bookingDao = new BookingDao();
+    private final CarDao carDao = new CarDao();
+    private final UserDao userDao = new UserDao();
 
     @Override
 
